@@ -4,7 +4,7 @@
   "description": "CLI to convert ResX files to JSON files",
   "main": "resx2i18next.js",
   "bin": {
-    "resx": "cli/resx.js"
+    "resx": "resx.js"
   },
   "scripts": {
     "test": "resx",
@@ -24,9 +24,11 @@
     "url": "https://github.com/rolandpd/resx-to-json-cli/issues"
   },
   "homepage": "https://github.com/rolandpd/resx-to-json-cli#readme",
-
-  "devDependencies": {
-  },
+  "devDependencies": {},
   "dependencies": {
+    "commander": "^2.19.0",
+    "glob": "^7.1.3",
+    "promise": "^8.0.2",
+    "xml2js": "^0.4.19"
   }
 }
