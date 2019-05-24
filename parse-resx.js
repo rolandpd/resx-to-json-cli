@@ -22,7 +22,7 @@ function parseFile(filename, defaultLanguage, opts) {
         result.root.data.forEach(function (item) {
           var key = item.$.name;
           var val = item.value && item.value.length === 1 ? item.value[0] : item.value;
-          if (opt.categories) {
+          if (opts.categories) {
             if (!keyValues[module]) {
               keyValues[module] = {};
             }
