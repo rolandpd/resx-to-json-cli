@@ -22,7 +22,14 @@ function parseFile(filename, defaultLanguage, opts) {
         result.root.data.forEach(function (item) {
           var key = item.$.name;
           var val = item.value && item.value.length === 1 ? item.value[0] : item.value;
-          keyValues[key] = val || '';
+          if (opts.categories) {
+            if (!keyValues[module]) {
+              keyValues[module] = {};
+            }
+            keyValues[module][key] = val || '';
+          } else {
+            keyValues[key] = val || '';
+          }
         });
       }
       return {
@@ -36,6 +43,7 @@ function parseFile(filename, defaultLanguage, opts) {
 function readLocales(sourcePath, targetPath, options) {
   var opts = options || {
     underscores: false,
+    categories: false,
     defaultLanguage: 'en-US'
   };
   return readPath(sourcePath, 'utf-8')

@@ -1,13 +1,16 @@
 {
   "name": "resx-to-json-cli",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "CLI to convert ResX files to JSON files",
   "main": "resx2i18next.js",
   "bin": {
-    "resx": "resx.js"
+    "resx": "index.js"
   },
   "scripts": {
-    "test": "resx",
+    "test_default":"resx -s ./test/input/i18n/*.resx -t ./test/output/default ",
+    "test_underscore": "resx -s ./test/input/i18n/*.resx -t ./test/output/underscore -u" ,
+    "test_categories": "resx -s ./test/input/i18n/*.resx -t ./test/output/categories -c ",
+    "test": "npm run test_default && npm run test_underscore && npm run test_categories",
     "link": "npm link"
   },
   "repository": {
