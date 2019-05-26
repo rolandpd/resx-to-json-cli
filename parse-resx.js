@@ -40,6 +40,16 @@ function parseFile(filename, defaultLanguage, opts) {
     });
 }
 
+function replaceValues(target, keyValues) {
+  if (!target) {
+    target = {};
+  }
+  Object.keys(keyValues || {}).forEach(function (key) {
+    target[key] = keyValues[key];
+  });
+  return target;
+}
+
 function readLocales(sourcePath, targetPath, options) {
   var opts = options || {
     underscores: false,
@@ -53,11 +63,20 @@ function readLocales(sourcePath, targetPath, options) {
       }));
     })
     .then(function (results) {
-      return Promise.all(results.map(function (result) {
-        var fileName = path.resolve(targetPath, './' + result.language + '.json');
-        var data = JSON.stringify(result.keyValues, null, 2);
-        return writeFile(fileName, data);
-      }));
+      var files = results.reduce(function (memo, item) {
+        if (!memo[item.language]) {
+          memo[item.language] = {};
+        }
+        replaceValues(memo[item.language], item.keyValues);
+        return memo;
+      }, {})
+
+      return Promise.all(
+        Object.keys(files).map(function (language) {
+          var fileName = path.resolve(targetPath, './' + language + '.json');
+          var data = JSON.stringify(files[language], null, 2);
+          return writeFile(fileName, data);
+        }));
     });
 }
 
