@@ -97,10 +97,10 @@
 	<resheader name="writer">
 		<value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.3500.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
 	</resheader>
-	<data name="Einstellungen" xml:space="preserve">
-		<value>Einstellungen</value>
+	<data name="SampleKey2" xml:space="preserve">
+		<value>Sample value 2 (from set2)</value>
 	</data>
-	<data name="Beenden" xml:space="preserve">
-		<value>Beenden</value>
+	<data name="SampleKey3" xml:space="preserve">
+		<value>Sample value 3</value>
 	</data>
 </root>
