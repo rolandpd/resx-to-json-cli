@@ -7,8 +7,8 @@
     "resx": "index.js"
   },
   "scripts": {
-    "test_default":"resx -s ./test/input/i18n/*.resx -t ./test/output/default ",
-    "test_underscore": "resx -s ./test/input/i18n/*.resx -t ./test/output/underscore -u" ,
+    "test_default": "resx -s ./test/input/i18n/*.resx -t ./test/output/default ",
+    "test_underscore": "resx -s ./test/input/i18n/*.resx -t ./test/output/underscore -u",
     "test_categories": "resx -s ./test/input/i18n/*.resx -t ./test/output/categories -c ",
     "test": "npm run test_default && npm run test_underscore && npm run test_categories",
     "link": "npm link"
@@ -31,6 +31,7 @@
   "dependencies": {
     "commander": "^2.19.0",
     "glob": "^7.1.3",
+    "mkdirp": "^0.5.1",
     "promise": "^8.0.2",
     "xml2js": "^0.4.19"
   }

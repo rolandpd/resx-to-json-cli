@@ -17,9 +17,9 @@ program
 parseResX(program.srcDir, program.targetDir, {
   underscores: program.underscores,
   categories: program.categories
-}, function (err, result) {
+}, function (err) {
   if (err) {
     throw new Error(err);
   }
-  console.log('Finished');
+  process.exit()
 });

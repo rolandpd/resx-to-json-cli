@@ -1,4 +1,5 @@
 var path = require('path');
+var mkdirp = require('mkdirp');
 var xml2js = require('xml2js');
 var parser = new xml2js.Parser();
 var Promise = require('promise');
@@ -69,7 +70,7 @@ function readLocales(sourcePath, targetPath, options) {
         }
         replaceValues(memo[item.language], item.keyValues);
         return memo;
-      }, {})
+      }, {});
 
       return Promise.all(
         Object.keys(files).map(function (language) {
@@ -83,10 +84,15 @@ function readLocales(sourcePath, targetPath, options) {
 
 module.exports = function (sourcePath, targetPath, options, cb) {
   if (!sourcePath) {
-    cb('No source path defined', null);
+    cb('No source path defined. Use -s option to specify absolute or relative source path. Globs allowed.', null);
   }
   if (!targetPath) {
-    cb('No target path defined', null);
+    cb('No target path defined. Use -t option to specify absolute or relative path.', null);
   }
-  readLocales(sourcePath, targetPath, options).nodeify(cb);
+  mkdirp(path.resolve(targetPath), function (err) {
+    if (err) {
+      cb(err, null);
+    }
+    readLocales(sourcePath, targetPath, options).nodeify(cb);
+  });
 };
