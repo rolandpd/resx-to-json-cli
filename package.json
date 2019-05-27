@@ -1,6 +1,6 @@
 {
   "name": "resx-to-json-cli",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "CLI to convert ResX files to JSON files",
   "main": "resx2i18next.js",
   "bin": {
