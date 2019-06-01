@@ -10,6 +10,11 @@ var readFile = Promise.denodeify(fs.readFile);
 var writeFile = Promise.denodeify(fs.writeFile);
 var parseXml = Promise.denodeify(parser.parseString);
 
+function getBuildTime(language) {
+  return (new Date()).toISOString().replace(/T/, ' ').replace(/\..+/, '')
+  //.toLocaleString(language, {timeZone: undefined})
+}
+
 function parseFile(filename, defaultLanguage, opts) {
   var tokens = path.basename(filename, path.extname(filename)).split('.');
   var module = tokens[0];
@@ -19,6 +24,16 @@ function parseFile(filename, defaultLanguage, opts) {
     .then(parseXml)
     .then(function (result) {
       var keyValues = {};
+      if (opts.buildDateTime && module === opts.metaModule) {
+        if (opts.categories) {
+          if (!keyValues[module]) {
+            keyValues[module] = {};
+          }
+          keyValues[module][opts.buildDateTime] = getBuildTime(language)
+        } else {
+          keyValues[opts.buildDateTime] = getBuildTime(language);
+        }
+      }
       if (result.root.data) {
         result.root.data.forEach(function (item) {
           var key = item.$.name;
@@ -55,7 +70,9 @@ function readLocales(sourcePath, targetPath, options) {
   var opts = options || {
     underscores: false,
     categories: false,
-    defaultLanguage: 'en-US'
+    defaultLanguage: 'en-US',
+    metaModule: 'app',
+    buildDateTime: false
   };
   return readPath(sourcePath, 'utf-8')
     .then(function (files) {
